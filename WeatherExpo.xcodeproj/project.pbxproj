@@ -106,6 +106,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C1EEA4225E15FB1008F3965 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				4C45430425E0D74A003B18BB /* WeatherListCell.swift */,
+				4C45430525E0D74A003B18BB /* WeatherListCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		4CB471F125E0A7E400D96432 = {
 			isa = PBXGroup;
 			children = (
@@ -201,9 +210,9 @@
 		4CB4723825E0AC0F00D96432 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				4C7D982225E0F46C00935D2F /* CellDisplaying.swift */,
 				4CB4725C25E0AEED00D96432 /* UIColor+Utils.swift */,
 				4CB4723925E0AC4500D96432 /* UIViewController+Utils.swift */,
-				4C7D982225E0F46C00935D2F /* CellDisplaying.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -211,11 +220,10 @@
 		4CB4726125E0AFC100D96432 /* WeatherList */ = {
 			isa = PBXGroup;
 			children = (
-				4CB4729A25E0BAB000D96432 /* WeatherViewModel.swift */,
-				4CB472B125E0BB1E00D96432 /* WeatherListViewController.swift */,
-				4C45430425E0D74A003B18BB /* WeatherListCell.swift */,
-				4C45430525E0D74A003B18BB /* WeatherListCell.xib */,
+				4C1EEA4225E15FB1008F3965 /* Cell */,
 				4C45430B25E0D759003B18BB /* WeatherListPresenter.swift */,
+				4CB472B125E0BB1E00D96432 /* WeatherListViewController.swift */,
+				4CB4729A25E0BAB000D96432 /* WeatherViewModel.swift */,
 			);
 			path = WeatherList;
 			sourceTree = "<group>";
@@ -231,8 +239,8 @@
 		4CB4726325E0B06C00D96432 /* WeatherFilter */ = {
 			isa = PBXGroup;
 			children = (
-				4CB472B625E0BB2900D96432 /* WeatherFilterViewController.swift */,
 				4CBB578B25E118B20064678E /* FilterCountryViewModel.swift */,
+				4CB472B625E0BB2900D96432 /* WeatherFilterViewController.swift */,
 			);
 			path = WeatherFilter;
 			sourceTree = "<group>";
