@@ -90,17 +90,27 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
 // MARK: Conformance - WeatherListDisplaying
 
 extension WeatherListViewController: WeatherListDisplaying {
+    
+    func resetFilter() {
+        presenter.filter = .noFilter
+    }
+    
     func set(filterCountries: [FilterCountryItem]) {
         filterButtonAction = { [weak self] in
             let filterViewController = WeatherFilterViewController.instantiateFromStoryboard()
             filterViewController.items = filterCountries
+            filterViewController.filterResetAction = {
+                self?.resetFilter()
+            }
             self?.present(UINavigationController(rootViewController: filterViewController), animated: true)
         }
     }
     
     func set(items: [WeatherListCellItem]) {
         self.items = items
-        tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     func navigate(to item: WeatherListCellItem) {
         let detailViewController = WeatherDetailViewController.instantiateFromStoryboard()

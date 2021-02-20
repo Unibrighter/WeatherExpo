@@ -46,15 +46,18 @@ final class WeatherListPresenter: NSObject {
     private var cachedItems: [WeatherListCellItem] = []
     var order: OrderOption = .alphabet {
         didSet {
-            retrieveWeatherList { (items) in
-                display.set(items: items.applyFilter(option: filter).applyOrder(option: order))
+            retrieveWeatherList { [weak self] (items) in
+                guard let self = self else { return }
+                self.display.set(items: items.applyFilter(option: self.filter).applyOrder(option: self.order))
             }
         }
     }
     var filter: FilterOption = .noFilter {
         didSet {
-            retrieveWeatherList { (items) in
-                display.set(items: items.applyFilter(option: filter).applyOrder(option: order))
+            retrieveWeatherList { [weak self] (items) in
+                guard let self = self else { return }
+                self.display.set(items: items.applyFilter(option: self.filter).applyOrder(option: self.order))
+                self.display.show(currentIndicator: self.filter)
             }
         }
     }
@@ -69,10 +72,10 @@ final class WeatherListPresenter: NSObject {
     
     func displayDidLoad() {
         retrieveWeatherList(forceRefresh: true) { [weak self] (items) in
-            self?.display.set(items: items)
-            
-            let countries = getCountryList(from: items)
-            self?.display.set(filterCountries: countries.map { buildFilterCountryItem(from: $0) })
+            guard let self = self else { return }
+            self.display.set(items: items)
+            let countries = self.getCountryList(from: items)
+            self.display.set(filterCountries: countries.map { self.buildFilterCountryItem(from: $0) })
         }
     }
 }
@@ -87,7 +90,7 @@ private extension WeatherListPresenter {
         }
     }
     
-    func retrieveWeatherList(forceRefresh: Bool = false, completion: ([WeatherListCellItem]) -> Void) {
+    func retrieveWeatherList(forceRefresh: Bool = false, completion: @escaping ([WeatherListCellItem]) -> Void) {
         guard forceRefresh else {
             return completion(cachedItems)
         }
@@ -114,8 +117,7 @@ private extension WeatherListPresenter {
         let countries: [Country] = items.map {
             return $0.country
         }
-        let unique = Array(Set(countries))
-        return unique
+        return Array(Set(countries)).sorted { return $0.name < $1.name }
     }
 }
 
@@ -142,8 +144,10 @@ private extension Array where Element == WeatherListCellItem {
                 $0.temperatureValue < $1.temperatureValue
             }
         case .lastUpdated:
-            return sorted {
-                $0.date < $1.date
+            let itemsWithDate = filter { return $0.date != nil }
+            
+            return itemsWithDate.sorted {
+                $0.date! < $1.date!
             }
         }
     }

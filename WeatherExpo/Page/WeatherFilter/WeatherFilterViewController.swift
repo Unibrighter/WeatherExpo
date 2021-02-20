@@ -13,6 +13,7 @@ final class WeatherFilterViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     
     var items: [FilterCountryItem] = []
+    var filterResetAction: (() -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +35,7 @@ final class WeatherFilterViewController: UIViewController {
     }
     
     @objc private func onBackButtonTapped() {
+        filterResetAction?()
         self.dismiss(animated: true)
     }
 }

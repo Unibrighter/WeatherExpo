@@ -33,6 +33,6 @@ struct Weather: Decodable {
     let weatherTemp: String?
     let weatherFeelsLike: String?
     let sport: Sport
-    let weatherLastUpdated: WeatherDate
+    let weatherLastUpdated: WeatherDate?
     
 }
