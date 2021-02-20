@@ -71,17 +71,22 @@ final class WeatherListPresenter: NSObject {
     }
     
     func displayDidLoad() {
+        refreshWeatherList()
+    }
+    
+    func refreshWeatherList(completion: (() -> Void)? = nil) {
         retrieveWeatherList(forceRefresh: true) { [weak self] (items) in
             guard let self = self else { return }
             self.display.set(items: items)
             let countries = self.getCountryList(from: items)
             self.display.set(filterCountries: countries.map { self.buildFilterCountryItem(from: $0) })
+            completion?()
         }
     }
 }
 
 private extension WeatherListPresenter {
-
+    
     func buildFilterCountryItem(from country: Country) -> FilterCountryItem {
         return FilterCountryItem(country: country) { [weak self] selectedCountry in
             guard let self = self else { return }
