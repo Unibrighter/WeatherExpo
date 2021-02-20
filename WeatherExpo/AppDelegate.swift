@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func configAppearance() {
         UINavigationBar.appearance().barStyle = .black
-        UINavigationBar.appearance().barTintColor = .green
+        UINavigationBar.appearance().barTintColor = .backgroundDarkBlue
         UINavigationBar.appearance().tintColor = .white
     }
 }
