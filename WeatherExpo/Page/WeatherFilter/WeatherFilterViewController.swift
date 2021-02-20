@@ -58,6 +58,10 @@ extension WeatherFilterViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        navigationController?.popViewController(animated: true)
+        
+        let selectedCountry = items[indexPath.row]
+        selectedCountry.action?(selectedCountry.country)
+        
+        self.dismiss(animated: true)
     }
 }

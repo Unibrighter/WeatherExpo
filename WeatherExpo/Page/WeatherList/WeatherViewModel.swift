@@ -13,6 +13,8 @@ struct WeatherListCellItem {
     let country: Country
     let date: Date
     
+    let temperatureValue: Int
+    
     let venue: String
     let weather: String
     let temperature: String
@@ -49,6 +51,7 @@ extension WeatherListCellItem {
         
         self.init(country: weather.country,
                   date: weather.weatherLastUpdated.date,
+                  temperatureValue: Int(weatherTemp) ?? 0,
                   venue: weather.name,
                   weather: weatherCondition,
                   temperature: "\(weatherTemp)°",
