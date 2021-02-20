@@ -10,6 +10,7 @@ import Foundation
 protocol WeatherListDisplaying: AnyObject {
     func set(items: [WeatherListCellItem])
     func set(filterCountries: [FilterCountryItem])
+    func show(currentIndicator filterOption: FilterOption)
     func navigate(to item: WeatherListCellItem)
 }
 
@@ -17,6 +18,17 @@ enum OrderOption {
     case alphabet
     case temperature
     case lastUpdated
+    
+    var buttonText: String {
+        switch self {
+        case .alphabet:
+            return "A-Z"
+        case .temperature:
+            return "Temperature"
+        case .lastUpdated:
+            return "Last Updated"
+        }
+    }
 }
 
 enum FilterOption {
@@ -68,8 +80,10 @@ final class WeatherListPresenter: NSObject {
 private extension WeatherListPresenter {
 
     func buildFilterCountryItem(from country: Country) -> FilterCountryItem {
-        return FilterCountryItem(country: country) { selectedCountry in
+        return FilterCountryItem(country: country) { [weak self] selectedCountry in
+            guard let self = self else { return }
             self.filter = .country(selectedCountry)
+            self.display.show(currentIndicator: self.filter)
         }
     }
     
@@ -121,15 +135,15 @@ private extension Array where Element == WeatherListCellItem {
         switch option {
         case .alphabet:
             return sorted {
-                $0.venue > $1.venue
+                $0.venue < $1.venue
             }
         case .temperature:
             return sorted {
-                $0.temperature > $1.temperature
+                $0.temperatureValue < $1.temperatureValue
             }
         case .lastUpdated:
             return sorted {
-                $0.date > $1.date
+                $0.date < $1.date
             }
         }
     }

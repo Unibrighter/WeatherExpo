@@ -38,6 +38,10 @@ final class WeatherListViewController: UIViewController {
     private func setup() {
         navigationItem.title = "Weather List"
         
+        alphabetOrderButton.setTitle(OrderOption.alphabet.buttonText, for: .normal)
+        temperatureOrderButton.setTitle(OrderOption.temperature.buttonText, for: .normal)
+        lastUpdatedOrderButton.setTitle(OrderOption.lastUpdated.buttonText, for: .normal)
+        
         tableView.register(WeatherListCell.loadXIB(), forCellReuseIdentifier: WeatherListCell.identifier)
         tableView.dataSource = self
         tableView.delegate = self
@@ -46,12 +50,16 @@ final class WeatherListViewController: UIViewController {
 }
 
 // MARK: Conformance - IBAction
+
 extension WeatherListViewController {
     @IBAction func onAlphabetOrderButtonTapped(_ sender: Any) {
+        apply(orderOption: .alphabet)
     }
     @IBAction func onTemperatureOrderButtonTapped(_ sender: Any) {
+        apply(orderOption: .temperature)
     }
     @IBAction func onLastUpdatedOrderButtonTapped(_ sender: Any) {
+        apply(orderOption: .lastUpdated)
     }
     @IBAction func onFilterButtonTapped(_ sender: Any) {
         filterButtonAction?()
@@ -98,5 +106,25 @@ extension WeatherListViewController: WeatherListDisplaying {
         let detailViewController = WeatherDetailViewController.instantiateFromStoryboard()
         detailViewController.detailItem = item
         self.navigationController?.pushViewController(detailViewController, animated: true)
+    }
+    
+    func show(currentIndicator filterOption: FilterOption) {
+        switch filterOption {
+        case .country(let country):
+            filterButton.setTitle("Filtered: \(country.name)", for: .normal)
+        default:
+            filterButton.setTitle("Set Filter", for: .normal)
+        }
+    }
+}
+
+// MARK: Helper Functions
+
+private extension WeatherListViewController {
+    func apply(orderOption: OrderOption, forceRefresh: Bool = false) {
+        guard forceRefresh || presenter.order != orderOption else {
+            return
+        }
+        presenter.order = orderOption
     }
 }
