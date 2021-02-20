@@ -26,12 +26,12 @@ struct Weather: Decodable {
     let venueID: String
     let name: String
     let country: Country
-    let weatherCondition: String
-    let weatherConditionIcon: String
-    let weatherWind: String
-    let weatherHumidity: String
-    let weatherTemp: String
-    let weatherFeelsLike: String
+    let weatherCondition: String?
+    let weatherConditionIcon: String?
+    let weatherWind: String?
+    let weatherHumidity: String?
+    let weatherTemp: String?
+    let weatherFeelsLike: String?
     let sport: Sport
     let weatherLastUpdated: WeatherDate
     

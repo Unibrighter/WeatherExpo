@@ -1,5 +1,5 @@
 //
-//  WeatherListController.swift
+//  WeatherListAPIManager.swift
 //  WeatherExpo
 //
 //  Created by Bitmad on 20/2/21.
@@ -7,9 +7,11 @@
 
 import Foundation
 
-typealias WeatherListResponseCompletionBlock = (Result<WeatherListResponse, NSError>) -> Void
+typealias WeatherListResponseCompletionBlock = (Result<WeatherListResponse, Error>) -> Void
 
-final class WeatherListController {
+final class WeatherListAPIManager {
+    
+    static let shared = WeatherListAPIManager()
     
     let stubJSON =
     """
@@ -123,8 +125,8 @@ final class WeatherListController {
         do {
             let response: WeatherListResponse = try JSONDecoder().decode(WeatherListResponse.self, from: data)
             completion(.success(response))
-        } catch {
-            completion(.failure(NSError()))
+        } catch (let error){
+            completion(.failure(error))
             return
         }
     }

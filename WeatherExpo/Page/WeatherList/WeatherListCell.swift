@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class WeatherListCell: UITableViewCell {
+final class WeatherListCell: UITableViewCell, ReusableXIBLoadable {
     
     @IBOutlet var venueNameLabel: UILabel!
     @IBOutlet var weatherConditionLabel: UILabel!
@@ -15,13 +15,15 @@ final class WeatherListCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        weatherTemperatureLabel.textColor = .accentLightBlue
+        venueNameLabel.textColor = .gray
+        weatherConditionLabel.textColor = .gray
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    func config(with item: WeatherListCellItem) {
+        venueNameLabel.text = item.venue
+        weatherConditionLabel.text = item.weather
+        weatherTemperatureLabel.text = item.temperature
     }
-    
 }
