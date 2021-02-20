@@ -33,7 +33,7 @@ final class WeatherListViewController: UIViewController {
     // MARK: Helper Functions
     
     private func setup() {
-        navigationItem.title = "Weather"
+        navigationItem.title = "Weather List"
         
         tableView.register(WeatherListCell.loadXIB(), forCellReuseIdentifier: WeatherListCell.identifier)
         tableView.dataSource = self
@@ -77,5 +77,10 @@ extension WeatherListViewController: WeatherListDisplaying {
     func set(items: [WeatherListCellItem]) {
         self.items = items
         tableView.reloadData()
+    }
+    func navigate(to item: WeatherListCellItem) {
+        let detailViewController = WeatherDetailViewController.instantiateFromStoryboard()
+        detailViewController.detailItem = item
+        self.navigationController?.pushViewController(detailViewController, animated: true)
     }
 }
