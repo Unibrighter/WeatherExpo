@@ -44,38 +44,74 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ls3-VK-z75">
                                 <rect key="frame" x="0.0" y="88" width="414" height="30"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="QAA-DT-qWu">
-                                        <rect key="frame" x="0.0" y="0.0" width="168" height="30"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="QAA-DT-qWu">
+                                        <rect key="frame" x="0.0" y="0.0" width="266" height="30"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ida-kx-KT7">
-                                                <rect key="frame" x="0.0" y="0.0" width="46" height="30"/>
-                                                <state key="normal" title="Button"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="58" height="30"/>
+                                                <state key="normal" title="    A-Z    "/>
                                                 <connections>
                                                     <action selector="onAlphabetOrderButtonTapped:" destination="wxb-Wk-biZ" eventType="touchUpInside" id="Skf-Kf-c0J"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I2v-PM-Rj5">
-                                                <rect key="frame" x="61" y="0.0" width="46" height="30"/>
-                                                <state key="normal" title="Button"/>
+                                                <rect key="frame" x="73" y="0.0" width="88" height="30"/>
+                                                <state key="normal" title="Temperature"/>
                                                 <connections>
                                                     <action selector="onTemperatureOrderButtonTapped:" destination="wxb-Wk-biZ" eventType="touchUpInside" id="Ige-xe-bO6"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XF6-7Y-wXv">
-                                                <rect key="frame" x="122" y="0.0" width="46" height="30"/>
-                                                <state key="normal" title="Button"/>
+                                                <rect key="frame" x="176" y="0.0" width="90" height="30"/>
+                                                <state key="normal" title="Last updated"/>
                                                 <connections>
                                                     <action selector="onLastUpdatedOrderButtonTapped:" destination="wxb-Wk-biZ" eventType="touchUpInside" id="j4r-1T-l0A"/>
                                                 </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
+                                    <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z1W-7V-uZ2">
+                                        <rect key="frame" x="0.0" y="29" width="414" height="1"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QH3-Ou-unI">
+                                                <rect key="frame" x="0.0" y="0.0" width="58" height="1"/>
+                                                <color key="backgroundColor" systemColor="linkColor"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2fG-I6-mX9">
+                                                <rect key="frame" x="73" y="0.0" width="88" height="1"/>
+                                                <color key="backgroundColor" systemColor="linkColor"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Tv-pn-ZXD">
+                                                <rect key="frame" x="176" y="0.0" width="90" height="1"/>
+                                                <color key="backgroundColor" systemColor="linkColor"/>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                                        <constraints>
+                                            <constraint firstItem="1Tv-pn-ZXD" firstAttribute="top" secondItem="z1W-7V-uZ2" secondAttribute="top" id="5vT-xQ-DF7"/>
+                                            <constraint firstItem="QH3-Ou-unI" firstAttribute="top" secondItem="z1W-7V-uZ2" secondAttribute="top" id="AHv-P4-2gS"/>
+                                            <constraint firstAttribute="height" constant="1" id="F7w-Es-Etu"/>
+                                            <constraint firstAttribute="bottom" secondItem="QH3-Ou-unI" secondAttribute="bottom" id="Ki6-Rs-NFO"/>
+                                            <constraint firstAttribute="bottom" secondItem="2fG-I6-mX9" secondAttribute="bottom" id="Lcq-Si-xTl"/>
+                                            <constraint firstItem="2fG-I6-mX9" firstAttribute="top" secondItem="z1W-7V-uZ2" secondAttribute="top" id="QRi-XF-mcQ"/>
+                                            <constraint firstAttribute="bottom" secondItem="1Tv-pn-ZXD" secondAttribute="bottom" id="YCs-s1-xfE"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
+                                    <constraint firstItem="QH3-Ou-unI" firstAttribute="trailing" secondItem="Ida-kx-KT7" secondAttribute="trailing" id="KIi-IF-c4w"/>
+                                    <constraint firstItem="2fG-I6-mX9" firstAttribute="trailing" secondItem="I2v-PM-Rj5" secondAttribute="trailing" id="SuZ-i3-wHe"/>
+                                    <constraint firstAttribute="bottom" secondItem="z1W-7V-uZ2" secondAttribute="bottom" id="V3v-tj-Woq"/>
+                                    <constraint firstItem="1Tv-pn-ZXD" firstAttribute="leading" secondItem="XF6-7Y-wXv" secondAttribute="leading" id="ZAf-F1-7SQ"/>
+                                    <constraint firstItem="2fG-I6-mX9" firstAttribute="leading" secondItem="I2v-PM-Rj5" secondAttribute="leading" id="a3Q-Ct-5aW"/>
+                                    <constraint firstAttribute="trailing" secondItem="z1W-7V-uZ2" secondAttribute="trailing" id="du4-ll-Shp"/>
+                                    <constraint firstItem="1Tv-pn-ZXD" firstAttribute="trailing" secondItem="XF6-7Y-wXv" secondAttribute="trailing" id="elr-ct-dGg"/>
                                     <constraint firstItem="QAA-DT-qWu" firstAttribute="top" secondItem="Ls3-VK-z75" secondAttribute="top" id="kW4-7i-5uk"/>
+                                    <constraint firstItem="z1W-7V-uZ2" firstAttribute="leading" secondItem="Ls3-VK-z75" secondAttribute="leading" id="qzp-EN-POg"/>
                                     <constraint firstItem="QAA-DT-qWu" firstAttribute="leading" secondItem="Ls3-VK-z75" secondAttribute="leading" id="r8Q-Gi-gjC"/>
                                     <constraint firstAttribute="bottom" secondItem="QAA-DT-qWu" secondAttribute="bottom" id="yJ4-Qd-Hvw"/>
+                                    <constraint firstItem="QH3-Ou-unI" firstAttribute="leading" secondItem="Ida-kx-KT7" secondAttribute="leading" id="zlj-9T-0jW"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tp2-Jn-Yb3">
@@ -83,18 +119,28 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tTI-vm-Rt1">
                                         <rect key="frame" x="0.0" y="0.0" width="382" height="30"/>
-                                        <state key="normal" title="Filter"/>
+                                        <state key="normal" title="Set Filter"/>
                                         <connections>
                                             <action selector="onFilterButtonTapped:" destination="wxb-Wk-biZ" eventType="touchUpInside" id="mqS-r0-P3m"/>
                                         </connections>
                                     </button>
+                                    <view alpha="0.60000002384185791" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uoA-1w-RMW">
+                                        <rect key="frame" x="0.0" y="0.0" width="382" height="0.5"/>
+                                        <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="0.5" id="b4s-U8-emb"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
+                                    <constraint firstItem="uoA-1w-RMW" firstAttribute="top" secondItem="Tp2-Jn-Yb3" secondAttribute="top" id="762-Yp-wIC"/>
                                     <constraint firstAttribute="bottom" secondItem="tTI-vm-Rt1" secondAttribute="bottom" id="Fni-Vr-izH"/>
                                     <constraint firstAttribute="trailing" secondItem="tTI-vm-Rt1" secondAttribute="trailing" id="Quz-bV-VDi"/>
                                     <constraint firstItem="tTI-vm-Rt1" firstAttribute="leading" secondItem="Tp2-Jn-Yb3" secondAttribute="leading" id="eK7-NN-Nci"/>
                                     <constraint firstItem="tTI-vm-Rt1" firstAttribute="top" secondItem="Tp2-Jn-Yb3" secondAttribute="top" id="ttY-o0-DuD"/>
+                                    <constraint firstItem="uoA-1w-RMW" firstAttribute="leading" secondItem="Tp2-Jn-Yb3" secondAttribute="leading" id="wHY-Wy-OGy"/>
+                                    <constraint firstAttribute="trailing" secondItem="uoA-1w-RMW" secondAttribute="trailing" id="yat-EH-iZQ"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -116,10 +162,14 @@
                     <navigationItem key="navigationItem" id="F3B-ei-QnS"/>
                     <connections>
                         <outlet property="alphabetOrderButton" destination="Ida-kx-KT7" id="x34-70-Nsu"/>
+                        <outlet property="alphabetOrderHighlightIndicatorView" destination="QH3-Ou-unI" id="9Sd-Wl-488"/>
                         <outlet property="filterButton" destination="tTI-vm-Rt1" id="AtL-UC-tdB"/>
                         <outlet property="lastUpdatedOrderButton" destination="XF6-7Y-wXv" id="0Q4-Ti-Don"/>
+                        <outlet property="lastUpdatedOrderrHighlightIndicatorView" destination="1Tv-pn-ZXD" id="CEH-ce-N13"/>
+                        <outlet property="separaterContainerView" destination="z1W-7V-uZ2" id="3tv-qi-yaZ"/>
                         <outlet property="tableView" destination="2kA-TQ-SAw" id="rSh-7X-7bM"/>
                         <outlet property="temperatureOrderButton" destination="I2v-PM-Rj5" id="qka-7p-aA7"/>
+                        <outlet property="temperatureOrderHighlightIndicatorView" destination="2fG-I6-mX9" id="qeE-E5-NFj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ka6-1R-7Wn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -332,6 +382,9 @@
         </scene>
     </scenes>
     <resources>
+        <systemColor name="linkColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="opaqueSeparatorColor">
             <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
