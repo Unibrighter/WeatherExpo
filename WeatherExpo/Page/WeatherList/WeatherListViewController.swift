@@ -16,10 +16,13 @@ final class WeatherListViewController: UIViewController {
     @IBOutlet var temperatureOrderButton: UIButton!
     @IBOutlet var lastUpdatedOrderButton: UIButton!
     
+    @IBOutlet var filterButton: UIButton!
+    
     @IBOutlet var tableView: UITableView!
     
     private lazy var presenter: WeatherListPresenter = .init(display: self)
     private var items: [WeatherListCellItem] = []
+    private var filterButtonAction: (() -> Void)?
     
     // MARK: LifeCycle
     
@@ -50,9 +53,13 @@ extension WeatherListViewController {
     }
     @IBAction func onLastUpdatedOrderButtonTapped(_ sender: Any) {
     }
+    @IBAction func onFilterButtonTapped(_ sender: Any) {
+        filterButtonAction?()
+    }
 }
 
 // MARK: Conformance - UITableViewDelegate, UITableViewDataSource
+
 extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherListCell.identifier) as? WeatherListCell else {
@@ -73,7 +80,16 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
 }
 
 // MARK: Conformance - WeatherListDisplaying
+
 extension WeatherListViewController: WeatherListDisplaying {
+    func set(filterCountries: [FilterCountryItem]) {
+        filterButtonAction = { [weak self] in
+            let filterViewController = WeatherFilterViewController.instantiateFromStoryboard()
+            filterViewController.items = filterCountries
+            self?.present(UINavigationController(rootViewController: filterViewController), animated: true)
+        }
+    }
+    
     func set(items: [WeatherListCellItem]) {
         self.items = items
         tableView.reloadData()

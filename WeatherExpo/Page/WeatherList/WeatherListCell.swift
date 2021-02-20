@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class WeatherListCell: UITableViewCell, ReusableXIBLoadable {
+final class WeatherListCell: UITableViewCell {
     
     @IBOutlet var venueNameLabel: UILabel!
     @IBOutlet var weatherConditionLabel: UILabel!

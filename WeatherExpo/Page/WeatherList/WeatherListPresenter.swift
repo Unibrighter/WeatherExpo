@@ -9,15 +9,46 @@ import Foundation
 
 protocol WeatherListDisplaying: AnyObject {
     func set(items: [WeatherListCellItem])
+    func set(filterCountries: [FilterCountryItem])
     func navigate(to item: WeatherListCellItem)
+}
+
+enum OrderOption {
+    case alphabet
+    case temperature
+    case lastUpdated
+}
+
+enum FilterOption {
+    case country(Country)
+    case noFilter
 }
 
 final class WeatherListPresenter: NSObject {
     
     
     // MARK: Property
+    
     private weak var display: WeatherListDisplaying!
     private weak var weatherListAPIManager: WeatherListAPIManager!
+    
+    private var cachedItems: [WeatherListCellItem] = []
+    var order: OrderOption = .alphabet {
+        didSet {
+            retrieveWeatherList { (items) in
+                display.set(items: items.applyFilter(option: filter).applyOrder(option: order))
+            }
+        }
+    }
+    var filter: FilterOption = .noFilter {
+        didSet {
+            retrieveWeatherList { (items) in
+                display.set(items: items.applyFilter(option: filter).applyOrder(option: order))
+            }
+        }
+    }
+    
+    // MARK: LifeCycle
     
     init(display: WeatherListDisplaying,
          weatherListAPIManager: WeatherListAPIManager = .shared) {
@@ -26,12 +57,28 @@ final class WeatherListPresenter: NSObject {
     }
     
     func displayDidLoad() {
-        retrieveWeatherList { [weak self] (items) in
+        retrieveWeatherList(forceRefresh: true) { [weak self] (items) in
             self?.display.set(items: items)
+            
+            let countries = getCountryList(from: items)
+            self?.display.set(filterCountries: countries.map{ buildFilterCountryItem(from: $0) })
+        }
+    }
+}
+
+private extension WeatherListPresenter {
+
+    func buildFilterCountryItem(from country: Country) -> FilterCountryItem {
+        return FilterCountryItem(country: country) { selectedCountry in
+            self.filter = .country(selectedCountry)
         }
     }
     
-    func retrieveWeatherList(completion: ([WeatherListCellItem]) -> Void) {
+    func retrieveWeatherList(forceRefresh: Bool = false, completion: ([WeatherListCellItem]) -> Void) {
+        guard forceRefresh else {
+            return completion(cachedItems)
+        }
+        
         weatherListAPIManager.getWeatherList { [weak self] (result) in
             switch result {
             case .success(let response):
@@ -42,10 +89,50 @@ final class WeatherListPresenter: NSObject {
                     }
                     return item
                 }
+                self?.cachedItems = items
                 completion(items)
             default:
                 NSLog("Error occured...")
             }
         }
     }
+    
+    func getCountryList(from items: [WeatherListCellItem]) -> [Country] {
+        let countries: [Country] = items.map {
+            return $0.country
+        }
+        let unique = Array(Set(countries))
+        return unique
+    }
+}
+
+private extension Array where Element == WeatherListCellItem {
+    func applyFilter(option: FilterOption) -> [WeatherListCellItem] {
+        switch option {
+        case .country(let country):
+            return filter {
+                return $0.country.countryID == country.countryID
+            }
+        default:
+            return self
+        }
+    }
+    
+    func applyOrder(option: OrderOption) -> [WeatherListCellItem] {
+        switch option {
+        case .alphabet:
+            return sorted {
+                $0.venue > $1.venue
+            }
+        case .temperature:
+            return sorted {
+                $0.temperature > $1.temperature
+            }
+        case .lastUpdated:
+            return sorted {
+                $0.date > $1.date
+            }
+        }
+    }
+    
 }
