@@ -115,11 +115,15 @@ extension WeatherListViewController: WeatherListDisplaying {
     }
     
     func show(currentIndicator filterOption: FilterOption) {
+        var title: String
         switch filterOption {
         case .country(let country):
-            filterButton.setTitle("Filtered: \(country.name)", for: .normal)
+            title = "Filtered: \(country.name)"
         default:
-            filterButton.setTitle("Set Filter", for: .normal)
+            title = "Set Filter"
+        }
+        DispatchQueue.main.async {
+            self.filterButton.setTitle(title, for: .normal)
         }
     }
 }

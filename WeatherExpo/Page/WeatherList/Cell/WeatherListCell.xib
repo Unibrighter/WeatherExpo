@@ -48,8 +48,8 @@
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="22°" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TB9-a4-LsM">
-                                        <rect key="frame" x="78" y="26" width="304" height="53"/>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="44"/>
+                                        <rect key="frame" x="78" y="19.5" width="304" height="66"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="55"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
