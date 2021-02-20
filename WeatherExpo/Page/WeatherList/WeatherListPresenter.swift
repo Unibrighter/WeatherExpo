@@ -78,12 +78,13 @@ final class WeatherListPresenter: NSObject {
         retrieveWeatherList(forceRefresh: true) { [weak self] (items) in
             guard let self = self else { return }
             self.display.set(items: items)
-            let countries = self.getCountryList(from: items)
-            self.display.set(filterCountries: countries.map { self.buildFilterCountryItem(from: $0) })
+            self.display.set(filterCountries: items.countryList.map { self.buildFilterCountryItem(from: $0) })
             completion?()
         }
     }
 }
+
+// MARK: Helper Functions
 
 private extension WeatherListPresenter {
     
@@ -112,17 +113,10 @@ private extension WeatherListPresenter {
                 }
                 self?.cachedItems = items
                 completion(items)
-            default:
-                NSLog("Error occured...")
+            case .failure(let error):
+                NSLog("Error occured: \(error.localizedDescription)")
             }
         }
-    }
-    
-    func getCountryList(from items: [WeatherListCellItem]) -> [Country] {
-        let countries: [Country] = items.map {
-            return $0.country
-        }
-        return Array(Set(countries)).sorted { return $0.name < $1.name }
     }
 }
 
@@ -155,6 +149,14 @@ private extension Array where Element == WeatherListCellItem {
                 $0.date! < $1.date!
             }
         }
+    }
+    
+    var countryList: [Country] {
+        var result: [Country] = []
+        result.append(contentsOf: Set(map {
+            return $0.country
+        }))
+        return result.sorted { return $0.name < $1.name }
     }
     
 }

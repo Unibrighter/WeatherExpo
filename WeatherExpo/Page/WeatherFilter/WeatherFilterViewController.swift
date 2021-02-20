@@ -10,10 +10,14 @@ import UIKit
 
 final class WeatherFilterViewController: UIViewController {
         
+    // MARK: Property
+    
     @IBOutlet var tableView: UITableView!
     
     var items: [FilterCountryItem] = []
     var filterResetAction: (() -> Void)?
+    
+    // MARK: LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,9 +30,12 @@ final class WeatherFilterViewController: UIViewController {
     private func setup() {
         navigationItem.title = "Weather List"
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(onBackButtonTapped))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
+                                                                target: self,
+                                                                action: #selector(onBackButtonTapped))
         
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.identifier)
+        tableView.register(UITableViewCell.self,
+                           forCellReuseIdentifier: UITableViewCell.identifier)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
@@ -36,7 +43,7 @@ final class WeatherFilterViewController: UIViewController {
     
     @objc private func onBackButtonTapped() {
         filterResetAction?()
-        self.dismiss(animated: true)
+        dismiss(animated: true)
     }
 }
 
@@ -44,7 +51,9 @@ final class WeatherFilterViewController: UIViewController {
 
 extension WeatherFilterViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.identifier) else {
+        guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: UITableViewCell.identifier
+        ) else {
             return UITableViewCell()
         }
         

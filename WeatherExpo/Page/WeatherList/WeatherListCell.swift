@@ -9,9 +9,13 @@ import UIKit
 
 final class WeatherListCell: UITableViewCell {
     
+    // MARK: Property
+    
     @IBOutlet var venueNameLabel: UILabel!
     @IBOutlet var weatherConditionLabel: UILabel!
     @IBOutlet var weatherTemperatureLabel: UILabel!
+    
+    // MARK: LifeCycle
     
     override func awakeFromNib() {
         super.awakeFromNib()

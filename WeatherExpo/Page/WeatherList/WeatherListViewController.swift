@@ -43,67 +43,6 @@ final class WeatherListViewController: UIViewController {
         setup()
         presenter.displayDidLoad()
     }
-    
-    // MARK: Helper Functions
-    
-    private func setup() {
-        navigationItem.title = "Weather List"
-        configAppearnce()
-        
-        tableView.register(WeatherListCell.loadXIB(), forCellReuseIdentifier: WeatherListCell.identifier)
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.separatorStyle = .none
-        tableView.showsVerticalScrollIndicator = false
-        
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(refreshWeatherList), for: .valueChanged)
-        tableView.refreshControl = refreshControl
-    }
-    
-    @objc private func refreshWeatherList() {
-        tableView.refreshControl?.attributedTitle = NSAttributedString(string: "Refreshing...")
-        presenter.refreshWeatherList { [weak self] in
-            DispatchQueue.main.async {
-                self?.tableView.refreshControl?.endRefreshing()
-            }
-        }
-    }
-    
-    private func configAppearnce() {
-        filterButton.setTitleColor(.gray, for: .normal)
-        
-        orderOptionButtons.forEach { $0.setTitleColor(.gray, for: .normal) }
-        
-        
-        
-        highlight(orderOption: .alphabet)
-    }
-    
-    private func highlight(orderOption: OrderOption) {
-        let attributedString = NSMutableAttributedString(string: orderOption.buttonText,
-                                                         attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 15)])
-        orderOptionButtons.forEach {
-            let attributedString = NSAttributedString(string: $0.titleLabel?.text ?? "")
-            $0.setAttributedTitle(attributedString, for: .normal)
-        }
-        
-        alphabetOrderHighlightIndicatorView.isHidden = true
-        temperatureOrderHighlightIndicatorView.isHidden = true
-        lastUpdatedOrderrHighlightIndicatorView.isHidden = true
-        
-        switch orderOption {
-        case .alphabet:
-            alphabetOrderButton.setAttributedTitle(attributedString, for: .normal)
-            alphabetOrderHighlightIndicatorView.isHidden = false
-        case .temperature:
-            temperatureOrderButton.setAttributedTitle(attributedString, for: .normal)
-            temperatureOrderHighlightIndicatorView.isHidden = false
-        case .lastUpdated:
-            lastUpdatedOrderButton.setAttributedTitle(attributedString, for: .normal)
-            lastUpdatedOrderrHighlightIndicatorView.isHidden = false
-        }
-    }
 }
 
 // MARK: Conformance - IBAction
@@ -194,5 +133,62 @@ private extension WeatherListViewController {
         }
         highlight(orderOption: orderOption)
         presenter.order = orderOption
+    }
+    
+    func setup() {
+        navigationItem.title = "Weather List"
+        configAppearnce()
+        
+        tableView.register(WeatherListCell.loadXIB(), forCellReuseIdentifier: WeatherListCell.identifier)
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.separatorStyle = .none
+        tableView.showsVerticalScrollIndicator = false
+        
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshWeatherList), for: .valueChanged)
+        tableView.refreshControl = refreshControl
+    }
+    
+    @objc func refreshWeatherList() {
+        tableView.refreshControl?.attributedTitle = NSAttributedString(string: "Refreshing...")
+        presenter.refreshWeatherList { [weak self] in
+            DispatchQueue.main.async {
+                self?.tableView.refreshControl?.endRefreshing()
+            }
+        }
+    }
+    
+    func configAppearnce() {
+        filterButton.setTitleColor(.gray, for: .normal)
+        
+        orderOptionButtons.forEach { $0.setTitleColor(.gray, for: .normal) }
+        
+        highlight(orderOption: .alphabet)
+    }
+    
+    func highlight(orderOption: OrderOption) {
+        let attributedString = NSMutableAttributedString(string: orderOption.buttonText,
+                                                         attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 15)])
+        orderOptionButtons.forEach {
+            let attributedString = NSAttributedString(string: $0.titleLabel?.text ?? "")
+            $0.setAttributedTitle(attributedString, for: .normal)
+        }
+        
+        alphabetOrderHighlightIndicatorView.isHidden = true
+        temperatureOrderHighlightIndicatorView.isHidden = true
+        lastUpdatedOrderrHighlightIndicatorView.isHidden = true
+        
+        switch orderOption {
+        case .alphabet:
+            alphabetOrderButton.setAttributedTitle(attributedString, for: .normal)
+            alphabetOrderHighlightIndicatorView.isHidden = false
+        case .temperature:
+            temperatureOrderButton.setAttributedTitle(attributedString, for: .normal)
+            temperatureOrderHighlightIndicatorView.isHidden = false
+        case .lastUpdated:
+            lastUpdatedOrderButton.setAttributedTitle(attributedString, for: .normal)
+            lastUpdatedOrderrHighlightIndicatorView.isHidden = false
+        }
     }
 }

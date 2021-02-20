@@ -25,6 +25,7 @@ struct WeatherListCellItem {
 }
 
 extension WeatherListCellItem {
+    
     private static var dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.amSymbol = "AM"

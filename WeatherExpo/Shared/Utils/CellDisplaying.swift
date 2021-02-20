@@ -31,11 +31,6 @@ extension XIBLoadable {
     }
 }
 
-extension UITableViewCell: ReusableXIBLoadable {}
-
 typealias ReusableXIBLoadable = Reusable & XIBLoadable
 
-protocol CellDisplayable: Reusable, XIBLoadable {
-    var action: (() -> Void)? { get set }
-    func extractCell(from tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell
-}
+extension UITableViewCell: ReusableXIBLoadable {}

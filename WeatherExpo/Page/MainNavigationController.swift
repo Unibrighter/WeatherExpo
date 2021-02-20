@@ -8,12 +8,4 @@
 import Foundation
 import UIKit
 
-final class MainNavigationController: UINavigationController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
-//    override var preferredStatusBarStyle: UIStatusBarStyle {
-//        return .lightContent
-//    }
-}
+final class MainNavigationController: UINavigationController {}

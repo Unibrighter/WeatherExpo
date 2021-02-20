@@ -28,23 +28,3 @@ extension StoryboardLoadable where Self: UIViewController {
         }
     }
 }
-
-extension UINavigationController {
-    open override var childForStatusBarStyle: UIViewController? {
-        return visibleViewController
-    }
-    
-    open override var preferredStatusBarStyle: UIStatusBarStyle {
-        return visibleViewController?.preferredStatusBarStyle ?? .default
-    }
-}
-
-extension UITabBarController {
-    open override var childForStatusBarStyle: UIViewController? {
-        return selectedViewController
-    }
-    
-    open override var preferredStatusBarStyle: UIStatusBarStyle {
-        return selectedViewController?.preferredStatusBarStyle ?? .default
-    }
-}

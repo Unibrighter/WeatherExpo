@@ -10,6 +10,8 @@ import UIKit
 
 final class WeatherDetailViewController: UIViewController {
     
+    // MARK: Property
+    
     @IBOutlet var venueLabel: UILabel!
     @IBOutlet var weatherConditionLabel: UILabel!
     @IBOutlet var weatherTemperatureLabel: UILabel!
@@ -27,13 +29,19 @@ final class WeatherDetailViewController: UIViewController {
     
     var detailItem: WeatherListCellItem?
     
+    // MARK: LifeCycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configAppearance()
         config(with: detailItem)
     }
-    
+}
+
+// MARK: Helper Functions
+
+private extension WeatherDetailViewController {
     func config(with item: WeatherListCellItem?) {
         guard let item = item else { return }
         
