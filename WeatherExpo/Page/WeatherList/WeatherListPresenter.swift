@@ -26,7 +26,6 @@ enum FilterOption {
 
 final class WeatherListPresenter: NSObject {
     
-    
     // MARK: Property
     
     private weak var display: WeatherListDisplaying!
@@ -61,7 +60,7 @@ final class WeatherListPresenter: NSObject {
             self?.display.set(items: items)
             
             let countries = getCountryList(from: items)
-            self?.display.set(filterCountries: countries.map{ buildFilterCountryItem(from: $0) })
+            self?.display.set(filterCountries: countries.map { buildFilterCountryItem(from: $0) })
         }
     }
 }

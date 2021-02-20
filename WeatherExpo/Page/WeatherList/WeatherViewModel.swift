@@ -47,7 +47,6 @@ extension WeatherListCellItem {
         let humidityText = weatherHumidity.replacingOccurrences(of: "Humidity: ", with: "")
         let windText = weatherWind.replacingOccurrences(of: "Wind: ", with: "")
         
-        
         self.init(country: weather.country,
                   date: weather.weatherLastUpdated.date,
                   venue: weather.name,

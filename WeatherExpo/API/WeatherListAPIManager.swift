@@ -126,7 +126,7 @@ final class WeatherListAPIManager {
         do {
             let response: WeatherListResponse = try JSONDecoder().decode(WeatherListResponse.self, from: data)
             completion(.success(response))
-        } catch (let error){
+        } catch let error {
             completion(.failure(error))
             return
         }
@@ -139,9 +139,9 @@ final class WeatherListAPIManager {
         }
         do {
             let response: WeatherListResponse = try JSONDecoder().decode(WeatherListResponse.self, from: data)
-            let countries = Array(Set(response.data.compactMap{ return $0.country.name }))
+            let countries = Array(Set(response.data.compactMap { return $0.country.name }))
             completion(.success(countries))
-        } catch (let error){
+        } catch let error {
             completion(.failure(error))
             return
         }
