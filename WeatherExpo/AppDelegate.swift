@@ -12,7 +12,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: Property
     public var window: UIWindow?
-    public var mainNavigationController: MainNavigationController?
 
     // MARK: Conformance - UIApplicationDelegate
     func application(_ application: UIApplication,
@@ -21,9 +20,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
        
         let screenBounds = UIScreen.main.bounds
         window = UIWindow(frame: screenBounds)
-        mainNavigationController = MainNavigationController.instantiateFromStoryboard()
+        let navigationController = UINavigationController(
+            rootViewController: WeatherListViewController.instantiateFromStoryboard()
+        )
 
-        window?.rootViewController = mainNavigationController
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
         return true
     }
