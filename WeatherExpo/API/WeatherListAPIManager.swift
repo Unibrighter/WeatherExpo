@@ -28,13 +28,11 @@ final class WeatherListAPIManager {
         
         let task = URLSession.shared.dataTask(with: WeatherListAPIManager.url) {(data, _, error) in
             guard error == nil else {
-                completion(Result.failure(WEAPIError.networkError(error!)))
-                return
+                return completion(Result.failure(WEAPIError.networkError(error!)))
             }
 
             guard let data = data else {
-                completion(Result.failure(WEAPIError.requestError))
-                return
+                return completion(Result.failure(WEAPIError.requestError))
             }
             
             do {

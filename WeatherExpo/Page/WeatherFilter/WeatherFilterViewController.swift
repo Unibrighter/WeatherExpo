@@ -32,7 +32,7 @@ final class WeatherFilterViewController: UIViewController {
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
                                                                 target: self,
-                                                                action: #selector(onBackButtonTapped))
+                                                                action: #selector(onCancelButtonTapped))
         
         tableView.register(UITableViewCell.self,
                            forCellReuseIdentifier: UITableViewCell.identifier)
@@ -41,7 +41,7 @@ final class WeatherFilterViewController: UIViewController {
         tableView.separatorStyle = .none
     }
     
-    @objc private func onBackButtonTapped() {
+    @objc private func onCancelButtonTapped() {
         filterResetAction?()
         dismiss(animated: true)
     }
