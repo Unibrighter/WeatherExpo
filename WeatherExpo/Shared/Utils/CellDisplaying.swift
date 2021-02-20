@@ -31,6 +31,8 @@ extension XIBLoadable {
     }
 }
 
+extension UITableViewCell: ReusableXIBLoadable {}
+
 typealias ReusableXIBLoadable = Reusable & XIBLoadable
 
 protocol CellDisplayable: Reusable, XIBLoadable {

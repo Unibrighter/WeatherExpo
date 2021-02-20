@@ -8,6 +8,7 @@
 import Foundation
 
 typealias WeatherListResponseCompletionBlock = (Result<WeatherListResponse, Error>) -> Void
+typealias CountryNamesResponseCompletionBlock = (Result<[String], Error>) -> Void
 
 final class WeatherListAPIManager {
     
@@ -125,7 +126,22 @@ final class WeatherListAPIManager {
         do {
             let response: WeatherListResponse = try JSONDecoder().decode(WeatherListResponse.self, from: data)
             completion(.success(response))
-        } catch (let error){
+        } catch let error {
+            completion(.failure(error))
+            return
+        }
+    }
+    
+    func getCountryList(completion: CountryNamesResponseCompletionBlock) {
+        guard let data = stubJSON.data(using: String.Encoding.utf8) else {
+            completion(.failure(NSError()))
+            return
+        }
+        do {
+            let response: WeatherListResponse = try JSONDecoder().decode(WeatherListResponse.self, from: data)
+            let countries = Array(Set(response.data.compactMap { return $0.country.name }))
+            completion(.success(countries))
+        } catch let error {
             completion(.failure(error))
             return
         }

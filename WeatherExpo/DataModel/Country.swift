@@ -18,3 +18,13 @@ struct Country: Decodable {
     let name: String
     
 }
+
+extension Country: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(countryID)
+    }
+    
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        return lhs.countryID == rhs.countryID
+    }
+}

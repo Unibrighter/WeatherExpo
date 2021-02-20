@@ -10,7 +10,6 @@ import UIKit
 
 final class WeatherDetailViewController: UIViewController {
     
-    
     @IBOutlet var venueLabel: UILabel!
     @IBOutlet var weatherConditionLabel: UILabel!
     @IBOutlet var weatherTemperatureLabel: UILabel!

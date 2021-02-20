@@ -9,13 +9,16 @@ import Foundation
 import UIKit
 
 struct WeatherListCellItem {
+    
+    let country: Country
+    let date: Date
+    
     let venue: String
     let weather: String
     let temperature: String
     let feelsLikeTemperature: String
     let humidity: String
     let wind: String
-    let lastUpdatedText: String
     var action: (() -> Void)?
 }
 
@@ -28,6 +31,10 @@ extension WeatherListCellItem {
         return dateFormatter
     }()
     
+    var lastUpdatedText: String {
+        return "Last updated: \(WeatherListCellItem.dateFormatter.string(from: date))"
+    }
+    
     init?(from weather: Weather) {
         guard let weatherHumidity = weather.weatherHumidity,
               let weatherWind = weather.weatherWind,
@@ -39,15 +46,15 @@ extension WeatherListCellItem {
         
         let humidityText = weatherHumidity.replacingOccurrences(of: "Humidity: ", with: "")
         let windText = weatherWind.replacingOccurrences(of: "Wind: ", with: "")
-        let lastUpdatedText = "Last updated: \(WeatherListCellItem.dateFormatter.string(from: weather.weatherLastUpdated.date))"
         
-        self.init(venue: weather.name,
+        self.init(country: weather.country,
+                  date: weather.weatherLastUpdated.date,
+                  venue: weather.name,
                   weather: weatherCondition,
                   temperature: "\(weatherTemp)°",
                   feelsLikeTemperature: "\(weatherFeelsLike)°",
                   humidity: humidityText,
                   wind: windText,
-                  lastUpdatedText: lastUpdatedText,
                   action: nil)
     }
 }
