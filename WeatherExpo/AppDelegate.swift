@@ -32,7 +32,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().barStyle = .black
         UINavigationBar.appearance().barTintColor = .green
         UINavigationBar.appearance().tintColor = .white
-        
     }
 }
 
