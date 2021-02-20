@@ -77,8 +77,12 @@ final class WeatherListPresenter: NSObject {
     func refreshWeatherList(completion: (() -> Void)? = nil) {
         retrieveWeatherList(forceRefresh: true) { [weak self] (items) in
             guard let self = self else { return }
-            self.display.set(items: items)
-            self.display.set(filterCountries: items.countryList.map { self.buildFilterCountryItem(from: $0) })
+            self.display.set(
+                filterCountries: items.countryList.map { self.buildFilterCountryItem(from: $0) }
+            )
+            self.display.set(items: items.applyFilter(option: self.filter).applyOrder(option: self.order)
+            )
+            self.display.show(currentIndicator: self.filter)
             completion?()
         }
     }
