@@ -9,6 +9,7 @@ import Foundation
 
 protocol WeatherListDisplaying: AnyObject {
     func set(items: [WeatherListCellItem])
+    func navigate(to item: WeatherListCellItem)
 }
 
 final class WeatherListPresenter: NSObject {
@@ -31,11 +32,15 @@ final class WeatherListPresenter: NSObject {
     }
     
     func retrieveWeatherList(completion: ([WeatherListCellItem]) -> Void) {
-        weatherListAPIManager.getWeatherList { (result) in
+        weatherListAPIManager.getWeatherList { [weak self] (result) in
             switch result {
             case .success(let response):
                 let items: [WeatherListCellItem] = response.data.compactMap {
-                    WeatherListCellItem(from: $0)
+                    guard var item = WeatherListCellItem(from: $0) else { return nil }
+                    item.action = {
+                        self?.display.navigate(to: item)
+                    }
+                    return item
                 }
                 completion(items)
             default:
