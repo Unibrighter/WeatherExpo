@@ -11,7 +11,7 @@ import UIKit
 struct WeatherListCellItem {
     
     let country: Country
-    let date: Date
+    let date: Date?
     
     let temperatureValue: Int
     
@@ -34,6 +34,10 @@ extension WeatherListCellItem {
     }()
     
     var lastUpdatedText: String {
+        guard let date = date else {
+            return "Last updated: Unknown"
+        }
+        
         return "Last updated: \(WeatherListCellItem.dateFormatter.string(from: date))"
     }
     
@@ -50,7 +54,7 @@ extension WeatherListCellItem {
         let windText = weatherWind.replacingOccurrences(of: "Wind: ", with: "")
         
         self.init(country: weather.country,
-                  date: weather.weatherLastUpdated.date,
+                  date: weather.weatherLastUpdated?.date,
                   temperatureValue: Int(weatherTemp) ?? 0,
                   venue: weather.name,
                   weather: weatherCondition,
