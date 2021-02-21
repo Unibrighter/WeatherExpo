@@ -12,6 +12,8 @@ final class WeatherListViewController: UIViewController {
     
     // MARK: Property
     
+    // MARK: - IBOutlet
+    
     @IBOutlet var alphabetOrderButton: UIButton!
     @IBOutlet var temperatureOrderButton: UIButton!
     @IBOutlet var lastUpdatedOrderButton: UIButton!
@@ -31,11 +33,21 @@ final class WeatherListViewController: UIViewController {
         (lastUpdatedOrderButton, lastUpdatedOrderrHighlightIndicatorView),
     ]
     
+    // MARK: - ViewModel Related
+    
     private lazy var presenter: WeatherListPresenter = .init(display: self)
     private var items: [WeatherListCellItem] = []
     private var filterButtonAction: (() -> Void)?
     
-    // MARK: LifeCycle
+    private var lastUpdatedDate: Date?
+    private var lastUpdatedInfo: String {
+        guard let date = lastUpdatedDate else {
+            return "Pull to refresh"
+        }
+        return date.lastUpdatedFormattedText
+    }
+    
+    // MARK: - LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -151,10 +163,16 @@ private extension WeatherListViewController {
     }
     
     @objc func refreshWeatherList() {
-        tableView.refreshControl?.attributedTitle = NSAttributedString(string: "Refreshing...")
+        tableView.refreshControl?.attributedTitle = NSAttributedString(string: lastUpdatedInfo)
+        lastUpdatedDate = Date()
+        
         presenter.refreshWeatherList { [weak self] in
             DispatchQueue.main.async {
-                self?.tableView.refreshControl?.endRefreshing()
+                UIView.animate(withDuration: 0.2) {
+                    self?.tableView.refreshControl?.alpha = 0
+                    self?.tableView.refreshControl?.endRefreshing()
+                }
+                self?.tableView.refreshControl?.alpha = 1
             }
         }
     }
