@@ -9,7 +9,7 @@ import Foundation
 
 protocol WeatherListDisplaying: AnyObject {
     func set(items: [WeatherListCellItem])
-    func set(filterCountries: [FilterCountryItem])
+    func set(filterCountries: [Country])
     func show(currentIndicator filterOption: FilterOption)
     func navigate(to item: WeatherListCellItem)
 }
@@ -77,11 +77,8 @@ final class WeatherListPresenter: NSObject {
     func refreshWeatherList(completion: (() -> Void)? = nil) {
         retrieveWeatherList(forceRefresh: true) { [weak self] (items) in
             guard let self = self else { return }
-            self.display.set(
-                filterCountries: items.countryList.map { self.buildFilterCountryItem(from: $0) }
-            )
-            self.display.set(items: items.applyFilter(option: self.filter).applyOrder(option: self.order)
-            )
+            self.display.set(filterCountries: items.countryList)
+            self.display.set(items: items.applyFilter(option: self.filter).applyOrder(option: self.order))
             self.display.show(currentIndicator: self.filter)
             completion?()
         }
@@ -91,14 +88,6 @@ final class WeatherListPresenter: NSObject {
 // MARK: Helper Functions
 
 private extension WeatherListPresenter {
-    
-    func buildFilterCountryItem(from country: Country) -> FilterCountryItem {
-        return FilterCountryItem(country: country) { [weak self] selectedCountry in
-            guard let self = self else { return }
-            self.filter = .country(selectedCountry)
-            self.display.show(currentIndicator: self.filter)
-        }
-    }
     
     func retrieveWeatherList(forceRefresh: Bool = false, completion: @escaping ([WeatherListCellItem]) -> Void) {
         guard forceRefresh else {

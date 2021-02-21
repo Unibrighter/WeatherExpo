@@ -29,7 +29,6 @@
 		4CB472AD25E0BB1700D96432 /* WeatherDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB472AC25E0BB1700D96432 /* WeatherDetailViewController.swift */; };
 		4CB472B225E0BB1E00D96432 /* WeatherListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB472B125E0BB1E00D96432 /* WeatherListViewController.swift */; };
 		4CB472B725E0BB2900D96432 /* WeatherFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB472B625E0BB2900D96432 /* WeatherFilterViewController.swift */; };
-		4CBB578C25E118B20064678E /* FilterCountryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBB578B25E118B20064678E /* FilterCountryViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,7 +77,6 @@
 		4CB472AC25E0BB1700D96432 /* WeatherDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherDetailViewController.swift; sourceTree = "<group>"; };
 		4CB472B125E0BB1E00D96432 /* WeatherListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherListViewController.swift; sourceTree = "<group>"; };
 		4CB472B625E0BB2900D96432 /* WeatherFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherFilterViewController.swift; sourceTree = "<group>"; };
-		4CBB578B25E118B20064678E /* FilterCountryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCountryViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -239,7 +237,6 @@
 		4CB4726325E0B06C00D96432 /* WeatherFilter */ = {
 			isa = PBXGroup;
 			children = (
-				4CBB578B25E118B20064678E /* FilterCountryViewModel.swift */,
 				4CB472B625E0BB2900D96432 /* WeatherFilterViewController.swift */,
 			);
 			path = WeatherFilter;
@@ -388,7 +385,6 @@
 				4C45430C25E0D759003B18BB /* WeatherListPresenter.swift in Sources */,
 				4C45430625E0D74A003B18BB /* WeatherListCell.swift in Sources */,
 				4CB4723A25E0AC4500D96432 /* UIViewController+Utils.swift in Sources */,
-				4CBB578C25E118B20064678E /* FilterCountryViewModel.swift in Sources */,
 				4CB472A325E0BB0200D96432 /* WeatherListAPIManager.swift in Sources */,
 				4CB4725D25E0AEED00D96432 /* UIColor+Utils.swift in Sources */,
 				4CB4729B25E0BAB000D96432 /* WeatherViewModel.swift in Sources */,

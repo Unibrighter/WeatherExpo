@@ -87,16 +87,12 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
 
 extension WeatherListViewController: WeatherListDisplaying {
     
-    func resetFilter() {
-        presenter.filter = .noFilter
-    }
-    
-    func set(filterCountries: [FilterCountryItem]) {
+    func set(filterCountries: [Country]) {
         filterButtonAction = { [weak self] in
             let filterViewController = WeatherFilterViewController.instantiateFromStoryboard()
             filterViewController.items = filterCountries
-            filterViewController.filterResetAction = {
-                self?.resetFilter()
+            filterViewController.filterSetAction = { filterOption in
+                self?.presenter.filter = filterOption
             }
             self?.present(UINavigationController(rootViewController: filterViewController), animated: true)
         }

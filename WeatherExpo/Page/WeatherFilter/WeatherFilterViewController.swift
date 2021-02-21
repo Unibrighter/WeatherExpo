@@ -14,8 +14,8 @@ final class WeatherFilterViewController: UIViewController {
     
     @IBOutlet var tableView: UITableView!
     
-    var items: [FilterCountryItem] = []
-    var filterResetAction: (() -> Void)?
+    var items: [Country] = []
+    var filterSetAction: ((FilterOption) -> Void)?
     
     // MARK: LifeCycle
     
@@ -42,7 +42,7 @@ final class WeatherFilterViewController: UIViewController {
     }
     
     @objc private func onCancelButtonTapped() {
-        filterResetAction?()
+        filterSetAction?(.noFilter)
         dismiss(animated: true)
     }
 }
@@ -57,7 +57,7 @@ extension WeatherFilterViewController: UITableViewDelegate, UITableViewDataSourc
             return UITableViewCell()
         }
         
-        cell.textLabel?.text = items[indexPath.row].country.name
+        cell.textLabel?.text = items[indexPath.row].name
         cell.accessoryType = .disclosureIndicator
         cell.tintColor = .accentLightBlue
         return cell
@@ -69,10 +69,7 @@ extension WeatherFilterViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        let selectedCountry = items[indexPath.row]
-        selectedCountry.action?(selectedCountry.country)
-        
+        filterSetAction?(.country(items[indexPath.row]))
         self.dismiss(animated: true)
     }
 }
