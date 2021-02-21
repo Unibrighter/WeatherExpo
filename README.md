@@ -27,3 +27,6 @@ However some of the specs are not pixel accurate because I can't view the Invisi
 - [x] Suburbs should be filterable by:
     - Country
 - [x] Tapping on a suburb to present another view with further details about the weather including the weather conditions, wind, humidity, and feels like temperature
+
+## GitRepo
+https://github.com/Unibrighter/WeatherExpo
