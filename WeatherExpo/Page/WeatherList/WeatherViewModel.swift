@@ -29,8 +29,7 @@ extension WeatherListCellItem {
         guard let date = date else {
             return "Last updated: Unknown"
         }
-        
-        return "Last updated: \(WeatherListCellItem.dateFormatter.string(from: date))"
+        return date.lastUpdatedFormattedText
     }
     
     var temperature: String {
@@ -59,13 +58,4 @@ extension WeatherListCellItem {
                   wind: windText,
                   action: nil)
     }
-    
-    // MARK: Private Helper
-    private static var dateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.amSymbol = "AM"
-        dateFormatter.pmSymbol = "PM"
-        dateFormatter.dateFormat = "hh:mma dd MMMM yyyy"
-        return dateFormatter
-    }()
 }

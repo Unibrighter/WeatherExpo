@@ -36,3 +36,17 @@ struct Weather: Decodable {
     let weatherLastUpdated: WeatherDate?
     
 }
+
+extension Date {
+    private static var dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.amSymbol = "AM"
+        dateFormatter.pmSymbol = "PM"
+        dateFormatter.dateFormat = "hh:mma dd MMMM yyyy"
+        return dateFormatter
+    }()
+    
+    var lastUpdatedFormattedText: String {
+        return "Last updated: \(Date.dateFormatter.string(from: self))"
+    }
+}
