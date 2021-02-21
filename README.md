@@ -19,7 +19,7 @@ However some of the specs are not pixel accurate because I can't view the Invisi
 ## Features
 - [x] Open, build and run the project without any further setting up with lastest version of Xcode (**12.4 (12D4e)**)
 - [x] Pull to refresh the data
-- [ ] Inform the user when the data was last updated from the server
+- [x] Inform the user when the data was last updated from the server
 - [x] Information should be sortable by:
     - Alphabetically
     - Temperature
