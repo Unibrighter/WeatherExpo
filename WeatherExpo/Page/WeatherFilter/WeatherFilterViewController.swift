@@ -14,8 +14,8 @@ final class WeatherFilterViewController: UIViewController {
     
     @IBOutlet var tableView: UITableView!
     
-    var items: [FilterCountryItem] = []
-    var filterResetAction: (() -> Void)?
+    var items: [Country] = []
+    var filterSetAction: ((FilterOption) -> Void)?
     
     // MARK: LifeCycle
     
@@ -34,15 +34,14 @@ final class WeatherFilterViewController: UIViewController {
                                                                 target: self,
                                                                 action: #selector(onCancelButtonTapped))
         
-        tableView.register(UITableViewCell.self,
-                           forCellReuseIdentifier: UITableViewCell.identifier)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.identifier)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
     }
     
     @objc private func onCancelButtonTapped() {
-        filterResetAction?()
+        filterSetAction?(.noFilter)
         dismiss(animated: true)
     }
 }
@@ -51,13 +50,11 @@ final class WeatherFilterViewController: UIViewController {
 
 extension WeatherFilterViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: UITableViewCell.identifier
-        ) else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.identifier) else {
             return UITableViewCell()
         }
         
-        cell.textLabel?.text = items[indexPath.row].country.name
+        cell.textLabel?.text = items[indexPath.row].name
         cell.accessoryType = .disclosureIndicator
         cell.tintColor = .accentLightBlue
         return cell
@@ -69,10 +66,7 @@ extension WeatherFilterViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        let selectedCountry = items[indexPath.row]
-        selectedCountry.action?(selectedCountry.country)
-        
+        filterSetAction?(.country(items[indexPath.row]))
         self.dismiss(animated: true)
     }
 }

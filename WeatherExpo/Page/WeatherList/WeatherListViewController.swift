@@ -25,10 +25,10 @@ final class WeatherListViewController: UIViewController {
     
     @IBOutlet var tableView: UITableView!
     
-    private lazy var orderOptionButtons: [UIButton] = [
-        alphabetOrderButton,
-        temperatureOrderButton,
-        lastUpdatedOrderButton
+    private lazy var orderOptionButtonsAndIndicators: [(button: UIButton, indicator: UIView)] = [
+        (alphabetOrderButton, alphabetOrderHighlightIndicatorView),
+        (temperatureOrderButton, temperatureOrderHighlightIndicatorView),
+        (lastUpdatedOrderButton, lastUpdatedOrderrHighlightIndicatorView),
     ]
     
     private lazy var presenter: WeatherListPresenter = .init(display: self)
@@ -87,16 +87,12 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
 
 extension WeatherListViewController: WeatherListDisplaying {
     
-    func resetFilter() {
-        presenter.filter = .noFilter
-    }
-    
-    func set(filterCountries: [FilterCountryItem]) {
+    func set(filterCountries: [Country]) {
         filterButtonAction = { [weak self] in
             let filterViewController = WeatherFilterViewController.instantiateFromStoryboard()
             filterViewController.items = filterCountries
-            filterViewController.filterResetAction = {
-                self?.resetFilter()
+            filterViewController.filterSetAction = { filterOption in
+                self?.presenter.filter = filterOption
             }
             self?.present(UINavigationController(rootViewController: filterViewController), animated: true)
         }
@@ -166,32 +162,26 @@ private extension WeatherListViewController {
     func configAppearnce() {
         filterButton.setTitleColor(.gray, for: .normal)
         
-        orderOptionButtons.forEach { $0.setTitleColor(.gray, for: .normal) }
+        orderOptionButtonsAndIndicators.forEach { $0.button.setTitleColor(.gray, for: .normal) }
         
         highlight(orderOption: .alphabet)
     }
     
     func highlight(orderOption: OrderOption) {
-        let attributedString = NSMutableAttributedString(string: orderOption.buttonText,
-                                                         attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 15)])
-        orderOptionButtons.forEach {
-            let attributedString = NSAttributedString(string: $0.titleLabel?.text ?? "")
-            $0.setAttributedTitle(attributedString, for: .normal)
+        orderOptionButtonsAndIndicators.forEach {
+            $0.button.alpha = 0.6
+            $0.indicator.isHidden = true
         }
-        
-        alphabetOrderHighlightIndicatorView.isHidden = true
-        temperatureOrderHighlightIndicatorView.isHidden = true
-        lastUpdatedOrderrHighlightIndicatorView.isHidden = true
         
         switch orderOption {
         case .alphabet:
-            alphabetOrderButton.setAttributedTitle(attributedString, for: .normal)
+            alphabetOrderButton.alpha = 1
             alphabetOrderHighlightIndicatorView.isHidden = false
         case .temperature:
-            temperatureOrderButton.setAttributedTitle(attributedString, for: .normal)
+            temperatureOrderButton.alpha = 1
             temperatureOrderHighlightIndicatorView.isHidden = false
         case .lastUpdated:
-            lastUpdatedOrderButton.setAttributedTitle(attributedString, for: .normal)
+            lastUpdatedOrderButton.alpha = 1
             lastUpdatedOrderrHighlightIndicatorView.isHidden = false
         }
     }

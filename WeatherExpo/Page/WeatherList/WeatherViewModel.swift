@@ -12,12 +12,10 @@ struct WeatherListCellItem {
     
     let country: Country
     let date: Date?
-    
     let temperatureValue: Int
     
     let venue: String
     let weather: String
-    let temperature: String
     let feelsLikeTemperature: String
     let humidity: String
     let wind: String
@@ -26,20 +24,17 @@ struct WeatherListCellItem {
 
 extension WeatherListCellItem {
     
-    private static var dateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.amSymbol = "AM"
-        dateFormatter.pmSymbol = "PM"
-        dateFormatter.dateFormat = "hh:mma dd MMMM yyyy"
-        return dateFormatter
-    }()
-    
+    // MARK: Computed Property
     var lastUpdatedText: String {
         guard let date = date else {
             return "Last updated: Unknown"
         }
         
         return "Last updated: \(WeatherListCellItem.dateFormatter.string(from: date))"
+    }
+    
+    var temperature: String {
+        return "\(temperatureValue)°"
     }
     
     init?(from weather: Weather) {
@@ -56,13 +51,21 @@ extension WeatherListCellItem {
         
         self.init(country: weather.country,
                   date: weather.weatherLastUpdated?.date,
-                  temperatureValue: Int(weatherTemp) ?? 0,
+                  temperatureValue: Int(weatherTemp)!,
                   venue: weather.name,
                   weather: weatherCondition,
-                  temperature: "\(weatherTemp)°",
                   feelsLikeTemperature: "\(weatherFeelsLike)°",
                   humidity: humidityText,
                   wind: windText,
                   action: nil)
     }
+    
+    // MARK: Private Helper
+    private static var dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.amSymbol = "AM"
+        dateFormatter.pmSymbol = "PM"
+        dateFormatter.dateFormat = "hh:mma dd MMMM yyyy"
+        return dateFormatter
+    }()
 }
