@@ -34,8 +34,7 @@ final class WeatherFilterViewController: UIViewController {
                                                                 target: self,
                                                                 action: #selector(onCancelButtonTapped))
         
-        tableView.register(UITableViewCell.self,
-                           forCellReuseIdentifier: UITableViewCell.identifier)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.identifier)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
@@ -51,9 +50,7 @@ final class WeatherFilterViewController: UIViewController {
 
 extension WeatherFilterViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: UITableViewCell.identifier
-        ) else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.identifier) else {
             return UITableViewCell()
         }
         
